@@ -15,7 +15,7 @@ class chat_model:
         data = {"model": "gpt-3.5-turbo",
                 "temperature": 0.7,
                 "max_tokens": 200,
-                "apiKey": "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",
+                "apiKey": "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",
                 "content": self.a,
                 "sessionId": str(self.time_uuid)}
         with open(self.file_name, 'w', encoding='utf-8') as file:
@@ -31,6 +31,6 @@ class chat_model:
         process = subprocess.Popen(self.curl_command, stdout=subprocess.PIPE, shell=True)
         self.result, error = process.communicate()
         self.result1 = self.result.decode('utf-8')
-        self.result1 = self.result1.split(":")[-1]
-        self.result = self.result1.replace('"', '').replace('}', '').replace('\\n','\n').replace('```"','').replace('"400]','')
+        self.result = self.result1.split("""":""")[-1]
+        self.result = self.result.replace("}",'').replace('\\n','\n').replace('"','')
         self.delete_json()
